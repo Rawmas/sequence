@@ -30,8 +30,8 @@
             min-height: 100vh;
             margin: 0;
             text-align: center;
-            /* Prevents horizontal scroll on mobile */
             overflow-x: hidden; 
+            -webkit-tap-highlight-color: transparent; /* Removes default blue tap box */
         }
 
         h1 {
@@ -61,47 +61,27 @@
             justify-content: center;
             max-width: 1200px;
             width: 100%;
-            padding: 0 20px; /* Safety padding */
+            padding: 0 20px;
             box-sizing: border-box;
         }
 
         .step {
-            /* INTERACTIVE CARD STYLING */
             background: var(--glass);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.15);
             padding: 0 20px; 
-            
-            /* FIXED RATIO: Shorter and squarer now */
-            width: 120px;  /* Wider start */
-            height: 140px; /* Shorter height (Better Aspect Ratio) */
-            
+            width: 120px;  
+            height: 140px; 
             border-radius: 4px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            
-            /* Flex layout */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            
-            /* Animation */
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             overflow: hidden; 
-            
-            /* Crucial for Mobile Tap */
             cursor: pointer;
-            outline: none; /* Removes blue outline on click */
-        }
-
-        /* EXPAND STATE (Hover OR Focus/Tap) */
-        .step:hover, .step:focus, .step:active {
-            width: 300px; /* Expands wide */
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255,255,255,0.5);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            z-index: 10; /* Brings active card to front */
         }
 
         .number { 
@@ -122,7 +102,6 @@
             white-space: nowrap; 
         }
 
-        /* THE HIDDEN TEXT */
         .description {
             opacity: 0;
             max-height: 0;
@@ -135,14 +114,6 @@
             transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
         }
 
-        /* SHOW TEXT ON INTERACTION */
-        .step:hover .description, .step:focus .description, .step:active .description {
-            opacity: 1;
-            margin-top: 15px;
-            transform: translateY(0);
-            max-height: 150px; 
-        }
-
         .footer-text { 
             max-width: 450px; 
             line-height: 1.8; 
@@ -152,32 +123,58 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.6); 
             letter-spacing: 0.05em;
         }
-        
-        /* MOBILE OPTIMIZATION (The Fix for 3+1 Layout) */
+
+        /* --- DESKTOP LOGIC (HOVER) --- */
+        @media (hover: hover) {
+            .step:hover {
+                width: 300px;
+                background: rgba(255, 255, 255, 0.2);
+                border-color: rgba(255,255,255,0.5);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            }
+            .step:hover .description {
+                opacity: 1;
+                margin-top: 15px;
+                transform: translateY(0);
+                max-height: 150px; 
+            }
+        }
+
+        /* --- MOBILE LOGIC (CLICK/ACTIVE CLASS) --- */
         @media (max-width: 768px) {
             h1 { font-size: 1.8rem; letter-spacing: 0.2em; }
             
-            /* Force a 2x2 Grid */
             .logic-grid { 
                 display: grid; 
-                grid-template-columns: 1fr 1fr; /* Two equal columns */
+                grid-template-columns: 1fr 1fr; /* 2x2 Grid */
                 gap: 10px;
-                max-width: 360px; /* Constraints width so they don't get too wide */
+                max-width: 360px; 
             }
 
             .step { 
-                width: 100% !important; /* Fills the grid column */
-                height: 130px; /* Nice square shape */
+                width: 100% !important; 
+                height: 130px; 
                 box-sizing: border-box;
             } 
-            
-            /* On tap, expand the card to cover BOTH columns (Full Width) */
-            .step:focus, .step:active {
-                grid-column: span 2; /* Takes up full width of the grid */
+
+            /* Javascript adds this class on tap */
+            .step.active {
+                grid-column: span 2; /* Full Width */
                 width: 100% !important;
                 height: auto;
-                padding-bottom: 20px;
-                padding-top: 20px;
+                padding-bottom: 25px;
+                padding-top: 25px;
+                background: rgba(255, 255, 255, 0.25);
+                border-color: rgba(255,255,255,0.6);
+            }
+            
+            .step.active .description {
+                opacity: 1;
+                margin-top: 15px;
+                transform: translateY(0);
+                max-height: 200px; /* Allow plenty of room for text */
+                width: 90%; 
+                font-size: 0.9rem;
             }
             
             .description { width: 90%; font-size: 0.8rem; }
@@ -191,25 +188,25 @@
     <p class="tagline">Science-Based Skincare</p>
 
     <div class="logic-grid">
-        <div class="step" tabindex="0">
+        <div class="step" onclick="toggleStep(this)">
             <span class="number">0</span>
             <span class="label">Prime</span>
             <p class="description">Optimizes skin permeability and resets pH to maximize absorption of subsequent layers.</p>
         </div>
 
-        <div class="step" tabindex="0">
+        <div class="step" onclick="toggleStep(this)">
             <span class="number">1</span>
             <span class="label">Correct</span>
             <p class="description">Delivers high-potency actives to target specific cellular concerns like tone, texture, or elasticity.</p>
         </div>
 
-        <div class="step" tabindex="0">
+        <div class="step" onclick="toggleStep(this)">
             <span class="number">2</span>
             <span class="label">Moisturize</span>
             <p class="description">Restores the lipid barrier to prevent transepidermal water loss and soften texture.</p>
         </div>
 
-        <div class="step" tabindex="0">
+        <div class="step" onclick="toggleStep(this)">
             <span class="number">3</span>
             <span class="label">Protect</span>
             <p class="description">A defensive shield that blocks UV radiation and environmental pollutants from penetrating the skin.</p>
@@ -217,6 +214,23 @@
     </div>
 
     <p class="footer-text">Refining the sequence.<br>Launching soon.</p>
+
+    <script>
+        function toggleStep(element) {
+            // Check if this step is already open
+            const isOpen = element.classList.contains('active');
+
+            // 1. Close ALL steps first (Resets the grid)
+            document.querySelectorAll('.step').forEach(s => {
+                s.classList.remove('active');
+            });
+
+            // 2. If it wasn't open, open it now
+            if (!isOpen) {
+                element.classList.add('active');
+            }
+        }
+    </script>
 
 </body>
 </html>
