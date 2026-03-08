@@ -7,16 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* These variables make the text pop against the purple */
             --bg: #000;
             --text: #ffffff;
-            --accent: #ddd;
+            --accent: #eee;
             --glass: rgba(255, 255, 255, 0.15);
         }
         body {
             font-family: 'Inter', sans-serif;
-            /* Using the Unsplash ID smCV9W38urU with optimized sizing */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=2000&auto=format&fit=crop');
+            /* This is the DIRECT link to the purple gel image */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=2560&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -35,13 +36,15 @@
             text-transform: uppercase;
             margin-bottom: 0.2em;
             font-size: 2.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            /* Subtle shadow to make text readable on any background part */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .tagline {
             font-weight: 400;
             letter-spacing: 0.1em;
             margin-bottom: 3em;
             color: var(--accent);
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
         }
         .logic-grid {
             display: flex;
@@ -51,10 +54,11 @@
             justify-content: center;
         }
         .step {
+            /* Stronger glass effect to stand out against the texture */
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
             padding: 30px 15px;
             width: 110px;
             border-radius: 12px;
@@ -64,10 +68,11 @@
         .step:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255,255,255,0.5);
         }
         .number { font-weight: 600; font-size: 1.8em; display: block; margin-bottom: 5px; }
         .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.15em; color: #fff; }
-        .footer-text { max-width: 450px; line-height: 1.8; color: var(--accent); font-size: 0.95em; margin-top: 20px;}
+        .footer-text { max-width: 450px; line-height: 1.8; color: var(--accent); font-size: 0.95em; margin-top: 20px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
