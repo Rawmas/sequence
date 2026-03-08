@@ -4,50 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sequence Skin | The Logic of Layering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fafafa;
-            --text: #1a1a1a;
-            --accent: #555;
+            --bg: #000;
+            --text: #ffffff;
+            --accent: #ddd;
+            --glass: rgba(255, 255, 255, 0.15);
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
+            font-family: 'Inter', sans-serif;
+            /* Using the Unsplash ID smCV9W38urU with optimized sizing */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             text-align: center;
         }
         h1 {
             font-weight: 300;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
-            margin-bottom: 0.5em;
+            margin-bottom: 0.2em;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .tagline {
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-bottom: 3em;
+            color: var(--accent);
         }
         .logic-grid {
             display: flex;
-            gap: 20px;
-            margin: 40px 0;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .step {
-            border: 1px solid #ddd;
-            padding: 20px;
-            width: 80px;
-            border-radius: 4px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 30px 15px;
+            width: 110px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
-        .number { font-weight: bold; font-size: 1.2em; display: block; }
-        .label { font-size: 0.7em; text-transform: uppercase; color: var(--accent); margin-top: 5px; }
-        p { max-width: 400px; line-height: 1.6; color: var(--accent); }
+        .step:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .number { font-weight: 600; font-size: 1.8em; display: block; margin-bottom: 5px; }
+        .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.15em; color: #fff; }
+        .footer-text { max-width: 450px; line-height: 1.8; color: var(--accent); font-size: 0.95em; margin-top: 20px;}
     </style>
 </head>
 <body>
 
     <h1>Sequence Skin</h1>
-    <p>Science-based skincare.</p>
+    <p class="tagline">Science-based skincare.</p>
 
     <div class="logic-grid">
         <div class="step"><span class="number">0</span><span class="label">Prime</span></div>
@@ -56,7 +82,7 @@
         <div class="step"><span class="number">3</span><span class="label">Protect</span></div>
     </div>
 
-    <p>Refining the sequence. Launching soon.</p>
+    <p class="footer-text">Refining the sequence for logic-driven results.<br>Launching soon.</p>
 
 </body>
 </html>
