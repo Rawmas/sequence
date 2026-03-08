@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Clinical Blue Theme Colors */
             --bg: #0d1b2a;
             --text: #ffffff;
             --accent: #e0e6ed;
@@ -31,7 +30,7 @@
             margin: 0;
             text-align: center;
             overflow-x: hidden; 
-            -webkit-tap-highlight-color: transparent; /* Removes default blue tap box */
+            -webkit-tap-highlight-color: transparent;
         }
 
         h1 {
@@ -53,26 +52,28 @@
             text-transform: uppercase;
         }
 
+        /* --- CONTAINER --- */
         .logic-grid {
             display: flex;
             gap: 15px; 
             margin-bottom: 50px;
-            flex-wrap: wrap; 
             justify-content: center;
             max-width: 1200px;
             width: 100%;
             padding: 0 20px;
             box-sizing: border-box;
+            /* Default is ROW (Desktop) */
+            flex-direction: row; 
+            flex-wrap: wrap; 
         }
 
+        /* --- CARD BASE STYLES --- */
         .step {
             background: var(--glass);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.15);
             padding: 0 20px; 
-            width: 120px;  
-            height: 140px; 
             border-radius: 4px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             display: flex;
@@ -82,6 +83,10 @@
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             overflow: hidden; 
             cursor: pointer;
+            
+            /* DESKTOP SIZING */
+            width: 120px;  
+            height: 140px; 
         }
 
         .number { 
@@ -140,30 +145,39 @@
             }
         }
 
-        /* --- MOBILE LOGIC (CLICK/ACTIVE CLASS) --- */
+        /* --- MOBILE LOGIC (VERTICAL STACK) --- */
         @media (max-width: 768px) {
             h1 { font-size: 1.8rem; letter-spacing: 0.2em; }
             
+            /* SWITCH TO VERTICAL COLUMN */
             .logic-grid { 
-                display: grid; 
-                grid-template-columns: 1fr 1fr; /* 2x2 Grid */
-                gap: 10px;
-                max-width: 360px; 
+                flex-direction: column; 
+                align-items: center;
+                gap: 12px;
+                max-width: 500px; /* Limits width on larger tablets */
             }
 
             .step { 
-                width: 100% !important; 
-                height: 130px; 
-                box-sizing: border-box;
+                /* Start as wide, short bars */
+                width: 100%; 
+                height: 70px; /* Compact height */
+                flex-direction: row; /* Number and Label side-by-side */
+                justify-content: flex-start;
+                padding-left: 30px;
+                gap: 20px;
             } 
 
-            /* Javascript adds this class on tap */
+            /* Adjust internal text layout for the "Bar" look */
+            .number { margin-bottom: 0; font-size: 1.4em; min-width: 30px; text-align: left; }
+            .label { font-size: 0.8em; letter-spacing: 0.15em; }
+
+            /* ACTIVE (EXPANDED) STATE */
             .step.active {
-                grid-column: span 2; /* Full Width */
-                width: 100% !important;
-                height: auto;
-                padding-bottom: 25px;
+                height: auto; /* Allow to grow */
                 padding-top: 25px;
+                padding-bottom: 25px;
+                flex-direction: column; /* Stack vertically when open */
+                align-items: flex-start; /* Left align text */
                 background: rgba(255, 255, 255, 0.25);
                 border-color: rgba(255,255,255,0.6);
             }
@@ -172,13 +186,15 @@
                 opacity: 1;
                 margin-top: 15px;
                 transform: translateY(0);
-                max-height: 200px; /* Allow plenty of room for text */
-                width: 90%; 
+                max-height: 500px; 
+                width: 100%; 
                 font-size: 0.9rem;
+                text-align: left; /* Easier to read on mobile */
             }
             
-            .description { width: 90%; font-size: 0.8rem; }
-            .number { font-size: 1.5em; }
+            /* Reset the flex-direction shift for the title when active */
+            .step.active .number { margin-bottom: 5px; font-size: 2em; }
+            .step.active .label { margin-bottom: 10px; }
         }
     </style>
 </head>
@@ -217,15 +233,17 @@
 
     <script>
         function toggleStep(element) {
-            // Check if this step is already open
+            // Only run click logic on mobile (screens smaller than 768px)
+            if (window.innerWidth > 768) return;
+
             const isOpen = element.classList.contains('active');
 
-            // 1. Close ALL steps first (Resets the grid)
+            // Close all others
             document.querySelectorAll('.step').forEach(s => {
                 s.classList.remove('active');
             });
 
-            // 2. If it wasn't open, open it now
+            // Toggle current
             if (!isOpen) {
                 element.classList.add('active');
             }
