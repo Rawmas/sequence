@@ -7,17 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* These variables make the text pop against the purple */
-            --bg: #000;
+            /* Adjusted for the Blue theme */
+            --bg: #0d1b2a;
             --text: #ffffff;
-            --accent: #eee;
-            --glass: rgba(255, 255, 255, 0.15);
+            --accent: #d0dbe5; /* Cool blue-white for accents */
+            --glass: rgba(255, 255, 255, 0.1);
         }
         body {
             font-family: 'Inter', sans-serif;
-            /* This is the DIRECT link to the purple gel image */
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=2560&auto=format&fit=crop');
+            /* Direct link to the Blue Cosmetic Textures image */
+            background: linear-gradient(rgba(13, 27, 42, 0.4), rgba(13, 27, 42, 0.4)), 
+                        url('https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=2560&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -36,15 +36,14 @@
             text-transform: uppercase;
             margin-bottom: 0.2em;
             font-size: 2.5rem;
-            /* Subtle shadow to make text readable on any background part */
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .tagline {
             font-weight: 400;
             letter-spacing: 0.1em;
             margin-bottom: 3em;
             color: var(--accent);
-            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         .logic-grid {
             display: flex;
@@ -54,25 +53,26 @@
             justify-content: center;
         }
         .step {
-            /* Stronger glass effect to stand out against the texture */
+            /* Icy glass effect */
             background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
             padding: 30px 15px;
             width: 110px;
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
         .step:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255,255,255,0.6);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
         }
         .number { font-weight: 600; font-size: 1.8em; display: block; margin-bottom: 5px; }
         .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.15em; color: #fff; }
-        .footer-text { max-width: 450px; line-height: 1.8; color: var(--accent); font-size: 0.95em; margin-top: 20px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
+        .footer-text { max-width: 450px; line-height: 1.8; color: var(--accent); font-size: 0.95em; margin-top: 20px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
