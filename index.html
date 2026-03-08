@@ -11,21 +11,17 @@
             --bg: #0d1b2a;
             --text: #ffffff;
             --accent: #e0e6ed;
-            --glass: rgba(255, 255, 255, 0.12); /* Slightly clearer glass */
+            --glass: rgba(255, 255, 255, 0.12);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            
-            /* HIGH-FIDELITY BACKGROUND SETTINGS */
             background-image: linear-gradient(rgba(13, 27, 42, 0.4), rgba(13, 27, 42, 0.4)), 
                               url('https://plus.unsplash.com/premium_photo-1764757496907-331948c564f4?q=80&w=1047&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            
-            background-size: cover;          /* Ensures image covers the screen without stretching */
-            background-position: 50% 50%;    /* Locks the center of the image to the center of the screen */
-            background-repeat: no-repeat;    /* Prevents the image from tiling on huge monitors */
-            background-attachment: fixed;    /* The image stays still while you scroll (Parallax effect) */
-            
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: var(--text);
             display: flex;
             flex-direction: column;
@@ -38,7 +34,7 @@
 
         h1 {
             font-weight: 300;
-            letter-spacing: 0.35em; /* Increased spacing for a more "luxury" feel */
+            letter-spacing: 0.35em;
             text-transform: uppercase;
             margin-bottom: 0.3em;
             font-size: 2.5rem;
@@ -57,46 +53,84 @@
 
         .logic-grid {
             display: flex;
-            gap: 20px;
+            gap: 15px; 
             margin-bottom: 50px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; 
             justify-content: center;
+            max-width: 1200px;
         }
 
         .step {
-            /* REFINED GLASS EFFECT */
+            /* INTERACTIVE CARD STYLING */
             background: var(--glass);
-            backdrop-filter: blur(12px);          /* Standard blur */
-            -webkit-backdrop-filter: blur(12px);  /* Safari blur support */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.15);
-            padding: 35px 20px;
+            padding: 0 20px; 
+            
+            /* Dimensions & Transition */
             width: 100px;
-            border-radius: 4px; /* Sharper corners feel more "medical/clinical" than round ones */
+            height: 180px; /* Slight increase to accommodate clinical text */
+            border-radius: 4px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
+            /* Flex layout for centering content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            /* The Animation Magic */
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease;
+            overflow: hidden; 
         }
 
+        /* HOVER STATE: EXPAND */
         .step:hover {
-            transform: translateY(-5px);
+            width: 280px; /* Wider to fit the clinical descriptions */
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255,255,255,0.5);
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            cursor: default;
         }
 
         .number { 
             font-weight: 600; 
-            font-size: 1.6em; 
+            font-size: 1.8em; 
             display: block; 
-            margin-bottom: 8px;
-            opacity: 0.9;
+            margin-bottom: 5px;
+            transition: transform 0.3s ease;
         }
 
         .label { 
-            font-size: 0.65em; 
+            font-size: 0.7em; 
             text-transform: uppercase; 
             letter-spacing: 0.2em; 
             color: #fff; 
-            opacity: 0.8;
+            opacity: 0.9;
+            margin-bottom: 0;
+            white-space: nowrap; 
+        }
+
+        /* THE HIDDEN TEXT */
+        .description {
+            opacity: 0;
+            max-height: 0;
+            width: 250px; 
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #e0e6ed;
+            margin-top: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+        }
+
+        /* SHOW TEXT ON HOVER */
+        .step:hover .description {
+            opacity: 1;
+            margin-top: 15px;
+            transform: translateY(0);
+            max-height: 150px; 
         }
 
         .footer-text { 
@@ -110,12 +144,12 @@
         }
         
         /* Mobile Optimization */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             h1 { font-size: 1.8rem; letter-spacing: 0.2em; }
-            .logic-grid { gap: 10px; }
-            .step { width: 70px; padding: 20px 10px; }
-            .number { font-size: 1.4em; }
-            .label { font-size: 0.55em; letter-spacing: 0.1em; }
+            .step { width: 80px; height: 160px; } 
+            .step:hover { width: 240px; }
+            .description { width: 220px; font-size: 0.75rem; }
+            .number { font-size: 1.5em; }
         }
     </style>
 </head>
@@ -125,10 +159,29 @@
     <p class="tagline">Science-Based Skincare</p>
 
     <div class="logic-grid">
-        <div class="step"><span class="number">0</span><span class="label">Prime</span></div>
-        <div class="step"><span class="number">1</span><span class="label">Correct</span></div>
-        <div class="step"><span class="number">2</span><span class="label">Moisturize</span></div>
-        <div class="step"><span class="number">3</span><span class="label">Protect</span></div>
+        <div class="step">
+            <span class="number">0</span>
+            <span class="label">Prime</span>
+            <p class="description">Optimizes skin permeability and resets pH to maximize absorption of subsequent layers.</p>
+        </div>
+
+        <div class="step">
+            <span class="number">1</span>
+            <span class="label">Correct</span>
+            <p class="description">Delivers high-potency actives to target specific cellular concerns like tone, texture, or elasticity.</p>
+        </div>
+
+        <div class="step">
+            <span class="number">2</span>
+            <span class="label">Moisturize</span>
+            <p class="description">Restores the lipid barrier to prevent transepidermal water loss and soften texture.</p>
+        </div>
+
+        <div class="step">
+            <span class="number">3</span>
+            <span class="label">Protect</span>
+            <p class="description">A defensive shield that blocks UV radiation and environmental pollutants from penetrating the skin.</p>
+        </div>
     </div>
 
     <p class="footer-text">Refining the sequence.<br>Launching soon.</p>
